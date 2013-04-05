@@ -57,7 +57,7 @@ namespace ResxToJs
 			}
 		}
 
-		public void WriteOutput(Dictionary<string, string> dict, string outputLocation)
+		private void WriteOutput(Dictionary<string, string> dict, string outputLocation)
 		{
 			var sb = new StringBuilder("Resources = {");
 			foreach (var entry in dict)
