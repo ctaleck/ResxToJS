@@ -19,8 +19,11 @@ namespace ResxToJs
 		[Option("jsFileName", Required = false, HelpText = "Name of the JavaScript file. By default, uses the same name as the .resx file.")]
 		public string JavaScriptFileName { get; set; }
 
-		[Option('j', "jsObjectName", Required = false, HelpText = "The Object name for the generated JavaScript file")]
+		[Option("jsObjectName", Required = false, HelpText = "The Object name for the generated JavaScript file")]
 		public string JsResourceObjectName { get; set; }
+
+		[Option("prettyPrint", DefaultValue = false, Required = false, HelpText = "The Object name for the generated JavaScript file")]
+		public bool PrettyPrint { get; set; }
 
 		[ParserState]
 		public IParserState LastParserState { get; set; }

@@ -57,7 +57,7 @@ namespace ResxToJs
 			}
 		}
 
-		public void WriteOutput(Dictionary<string, string> dict, string outputLocation)
+		public void WriteOutput(Options options, Dictionary<string, string> dict, string outputLocation)
 		{
 			var sb = new StringBuilder("Resources = {");
 			foreach (var entry in dict)
@@ -70,7 +70,7 @@ namespace ResxToJs
 				sb = sb.Remove(sb.Length - 1, 1);
 			}
 			sb.Append("};");
-			var prettyJson = jsonHelper.PrettyPrintJson(sb.ToString());
+			var prettyJson = options.PrettyPrint ? this.jsonHelper.PrettyPrintJson(sb.ToString()) : sb.ToString();
 			System.IO.File.WriteAllText(outputLocation, prettyJson);
 		}
 	}
