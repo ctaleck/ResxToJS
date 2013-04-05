@@ -38,7 +38,7 @@ namespace ResxToJs
 
 				if (resourceFile.IsBaseResourceType)
 				{
-					WriteOutput(baseResourceDict, outputJsFilePathName);
+					WriteOutput(options, baseResourceDict, outputJsFilePathName);
 				}
 				else
 				{
@@ -52,7 +52,7 @@ namespace ResxToJs
 					//Close the reader.
 					rsxr.Close();
 
-					WriteOutput(cultureSpecificResourceDict, outputJsFilePathName);
+					WriteOutput(options, cultureSpecificResourceDict, outputJsFilePathName);
 				}
 			}
 		}
