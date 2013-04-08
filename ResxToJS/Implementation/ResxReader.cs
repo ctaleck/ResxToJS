@@ -7,24 +7,45 @@ namespace ResxToJs
 	using System.IO;
 	using System.Resources;
 
+	using ResxToJs.Interfaces;
+
+	using log4net;
+
 	public class ResxReader : IResxReader
 	{
+		private readonly IApplicationState appState;
+
+		private readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		public ResxReader(IApplicationState appState, ILog logger)
+		{
+			this.appState = appState;
+
+			if (logger != null)
+			{
+				this.logger = logger;
+			}
+		}
+
 		public List<ResourceFile> GetResourceFiles(string directory)
 		{
 			var outputResourceFiles = new List<ResourceFile>();
-			var resourceFiles = Directory.GetFiles(directory, "*.resx");
-			foreach (var filePathName in resourceFiles)
+			if (Directory.Exists(directory))
 			{
-				var resourceFile = new ResourceFile() { IsBaseResourceType = false, ResourceFilePathName = filePathName };
-
-				var nameWithoutResx = filePathName.Remove(filePathName.LastIndexOf("."), 5);
-
-				// The file which does not have the ISO culture code in it is the base resource file.
-				if (nameWithoutResx.IndexOf(".") == -1)
+				var resourceFiles = Directory.GetFiles(directory, "*.resx");
+				foreach (var filePathName in resourceFiles)
 				{
-					resourceFile.IsBaseResourceType = true;
+					var resourceFile = new ResourceFile() { IsBaseResourceType = false, ResourceFilePathName = filePathName };
+
+					var nameWithoutResx = filePathName.Remove(filePathName.LastIndexOf("."), 5);
+
+					// The file which does not have the ISO culture code in it is the base resource file.
+					if (nameWithoutResx.IndexOf(".") == -1)
+					{
+						resourceFile.IsBaseResourceType = true;
+					}
+					outputResourceFiles.Add(resourceFile);
 				}
-				outputResourceFiles.Add(resourceFile);
 			}
 
 			return outputResourceFiles;
@@ -33,21 +54,22 @@ namespace ResxToJs
 		public Dictionary<string, string> GetKeyValuePairsFromResxFile(ResourceFile resourceFile)
 		{
 			var resourceFileDict = new Dictionary<string, string>();
+			var resourceReader = new ResXResourceReader(resourceFile.ResourceFilePathName);
 			try
-			{
-				var resourceReader = new ResXResourceReader(resourceFile.ResourceFilePathName);
+			{	
 				foreach (DictionaryEntry d in resourceReader)
 				{
 					var key = d.Key as string;
-					resourceFileDict.Add(key, d.Value.ToString());
+					if (key != null)
+					{	
+						resourceFileDict.Add(key, d.Value.ToString());
+					}
 				}
+			}
+			finally
+			{
 				resourceReader.Close();
 			}
-			catch (Exception ex)
-			{
-				
-			}
-			
 
 			return resourceFileDict;
 		}

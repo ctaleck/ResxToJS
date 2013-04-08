@@ -22,6 +22,9 @@ namespace ResxToJs
 		[Option('j', "jsObjectName", Required = false, HelpText = "The Object name for the generated JavaScript file")]
 		public string JsResourceObjectName { get; set; }
 
+		[Option("prettyPrint", Required = false, DefaultValue = false, HelpText = "Pretty print the generated JSON")]
+		public bool PrettyPrint { get; set; }
+
 		[ParserState]
 		public IParserState LastParserState { get; set; }
 
