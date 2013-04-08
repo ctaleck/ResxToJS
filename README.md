@@ -8,7 +8,7 @@ without duplicating the resource entries on the JavaScript side.
 
 
 Usage
-========
+------
 
 To convert .resx files in your .NET solution into JavaScript files, use the following
 
