@@ -22,7 +22,7 @@ By default, the generated JavaScript files use the same name as the C# resource 
 the end. To change this, use the below. 
 
 ```
-ResxToJs.exe -i ".NET resource files folder" -o "JavaScript resource files folder" --jsFileName "name of the js file"
+ResxToJs.exe -i ".NET resource files folder" -o "JavaScript resource files folder" --jsFileName "JS filename"
 ```
 
 
