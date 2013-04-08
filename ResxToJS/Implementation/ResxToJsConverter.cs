@@ -76,8 +76,10 @@ namespace ResxToJs
 
 		private static string GetJsOutputFileName(Options options, ResourceFile resourceFile)
 		{
-			var jsFileNameWithoutPath =
-				resourceFile.ResourceFilePathName.Substring(resourceFile.ResourceFilePathName.LastIndexOf("\\") + 1) + ".js";
+			var jsFileName = string.IsNullOrEmpty(options.JavaScriptFileName) 
+							? resourceFile.ResourceFilePathName.Substring(resourceFile.ResourceFilePathName.LastIndexOf("\\") + 1) 
+							: options.JavaScriptFileName;
+			var jsFileNameWithoutPath = jsFileName + ".js";
 			var outputJsFilePathName = Path.Combine(options.OutputFolder, jsFileNameWithoutPath);
 			return outputJsFilePathName;
 		}
@@ -106,14 +108,14 @@ namespace ResxToJs
 
 		private ResourceFile GetBaseResourceFile(IEnumerable<ResourceFile> resourceFiles)
 		{
-			var baseResourceFile = resourceFiles.First(x => x.IsBaseResourceType);
+			var baseResourceFile = resourceFiles.Where(x => x.IsBaseResourceType).ToList();
 
-			if (baseResourceFile == null)
+			if (!baseResourceFile.Any())
 			{
 				this.appState.AddError(ErrorMessages.BaseResourceFileNotFound);
 				throw new ApplicationException(ErrorMessages.BaseResourceFileNotFound);
 			}
-			return baseResourceFile;
+			return baseResourceFile.ElementAt(0);
 		}
 
 		private List<ResourceFile> GetResourceFiles(Options options)
