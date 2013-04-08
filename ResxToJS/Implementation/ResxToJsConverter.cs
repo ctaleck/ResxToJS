@@ -130,7 +130,8 @@ namespace ResxToJs
 
 		private void WriteOutput(Options options, Dictionary<string, string> resourceDict, string outputLocation)
 		{
-			var sb = new StringBuilder("Resources = {");
+			var resourceObjectName = string.IsNullOrEmpty(options.JsResourceObjectName) ? "Resources" : options.JsResourceObjectName.Trim();
+			var sb = new StringBuilder(resourceObjectName + " = {");
 			foreach (var entry in resourceDict)
 			{
 				sb.AppendFormat("\"{0}\":\"{1}\",", entry.Key, entry.Value);
