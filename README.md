@@ -24,8 +24,7 @@ ResxToJs.exe -i ".NET/C# resource files folder" -o "JS resource files folder" --
 The default name for the generated json object is Resources. To change this, use the below
 
 ```
-ResxToJs.exe -i ".NET/C# resource files folder" -o "JS resource files folder" 
---jsFileName "JS filename" --jsObjectName "JS resources object name"
+ResxToJs.exe -i ".NET/C# resource files folder" -o "JS resource files folder" --jsObjectName "JS resources object name"
 ```
 
 To pretty print the output JavaScript, use the following.
