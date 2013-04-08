@@ -6,9 +6,7 @@ Resx2Js is a utility that converts .NET/C# resx files into a JavaScript file whi
 This will allow you to store all your resources in one place on the .NET side and regenerate them for the JavaScript side
 without duplicating the resource entries on the JavaScript side. 
 
-
-Usage
-------
+## Usage
 
 To convert .resx files in your .NET solution into JavaScript files, use the following
 
