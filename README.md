@@ -14,10 +14,16 @@ To convert .resx files in your .NET solution into JavaScript files, use the foll
 
 To pretty print the output JavaScript, use the following.
 
+```
 ResxToJs.exe -i "path to .NET resource files folder" -o "path to JavaScript resource files folder" --prettyPrint
+```
 
 By default, the generated JavaScript files use the same name as the C# resource files with .js appended to 
 the end. To change this, use the below. 
 
+```
 ResxToJs.exe -i "path to .NET resource files folder" -o "path to JavaScript resource files folder" --jsFileName "name of the js file"
+```
+
+
 
