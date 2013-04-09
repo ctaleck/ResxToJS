@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +23,7 @@ namespace ResxToJs
 		public string JsResourceObjectName { get; set; }
 
 		[Option("prettyPrint", Required = false, DefaultValue = false, HelpText = "Pretty print the generated JSON")]
+
 		public bool PrettyPrint { get; set; }
 
 		[ParserState]

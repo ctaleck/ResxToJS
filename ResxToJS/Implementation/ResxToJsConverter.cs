@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace ResxToJs
 {
@@ -63,7 +63,9 @@ namespace ResxToJs
 
 				if (resourceFile.IsBaseResourceType)
 				{
+
 					this.WriteOutput(options, baseResourceDict, outputJsFilePathName);
+
 				}
 				else
 				{
@@ -103,6 +105,7 @@ namespace ResxToJs
 			{
 				rsxr.Close();
 			}
+			
 			return cultureSpecificResourceDict;
 		}
 
@@ -130,6 +133,7 @@ namespace ResxToJs
 			return resourceFiles;
 		}
 
+
 		private void WriteOutput(Options options, Dictionary<string, string> resourceDict, string outputLocation)
 		{
 			var resourceObjectName = string.IsNullOrEmpty(options.JsResourceObjectName) ? "Resources" : options.JsResourceObjectName.Trim();
@@ -144,6 +148,7 @@ namespace ResxToJs
 				sb = sb.Remove(sb.Length - 1, 1);
 			}
 			sb.Append("};");
+
 			var outputJson = sb.ToString();
 			if (options.PrettyPrint)
 			{
