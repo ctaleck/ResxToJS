@@ -23,8 +23,10 @@ namespace ResxToJs
 		public string JsResourceObjectName { get; set; }
 
 		[Option("prettyPrint", Required = false, DefaultValue = false, HelpText = "Pretty print the generated JSON")]
-
 		public bool PrettyPrint { get; set; }
+
+		[Option("checkDuplicates", Required = false, DefaultValue = false, HelpText = "Check for duplicate values in the resx files before generation")]
+		public bool CheckDuplicatesInResx { get; set; }
 
 		[ParserState]
 		public IParserState LastParserState { get; set; }

@@ -15,11 +15,11 @@ namespace ResxToJs
 			var parseSuccess = CommandLine.Parser.Default.ParseArguments(args, options);
 			if (parseSuccess)
 			{
-				IApplicationState appState = new ApplicationState();
-				IDeepCopier copier = new DeepCopier();
-				IResxReader resxReader = new ResxReader(appState, null);
-				IJsonHelper jsonHelper = new JsonHelper();
-				IResxToJsConverter converter = new ResxToJsConverter(copier, resxReader, jsonHelper, appState, null);
+				var appState = new ApplicationState();
+				var copier = new DeepCopier();
+				var resxReader = new ResxReader(appState, null);
+				var jsonHelper = new JsonHelper();
+				var converter = new ResxToJsConverter(copier, resxReader, jsonHelper, appState, null);
 				converter.Convert(options);
 				DisplayErrorMessages(appState);
 			}
@@ -27,6 +27,8 @@ namespace ResxToJs
 			{
 				Console.WriteLine("An error occurred while parsing the resx files.");
 			}
+
+			Console.ReadLine();
 		}
 
 		static void DisplayErrorMessages(IApplicationState appState)
@@ -36,6 +38,7 @@ namespace ResxToJs
 				foreach (var message in appState.ErrorMesssages)
 				{
 					Console.WriteLine(message);
+					Console.WriteLine();
 				}
 
 				Console.WriteLine("Please review logs for further details.");

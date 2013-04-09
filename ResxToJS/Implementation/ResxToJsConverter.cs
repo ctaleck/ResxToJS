@@ -63,9 +63,7 @@ namespace ResxToJs
 
 				if (resourceFile.IsBaseResourceType)
 				{
-
 					this.WriteOutput(options, baseResourceDict, outputJsFilePathName);
-
 				}
 				else
 				{
@@ -136,11 +134,17 @@ namespace ResxToJs
 
 		private void WriteOutput(Options options, Dictionary<string, string> resourceDict, string outputLocation)
 		{
+			var valueDict = new Dictionary<string, string>();
 			var resourceObjectName = string.IsNullOrEmpty(options.JsResourceObjectName) ? "Resources" : options.JsResourceObjectName.Trim();
 			var sb = new StringBuilder(resourceObjectName + " = {");
+
 			foreach (var entry in resourceDict)
 			{
-				sb.AppendFormat("\"{0}\":\"{1}\",", entry.Key, entry.Value);
+				this.CheckDuplicateValues(options, valueDict, entry, outputLocation);
+
+				var escapedValue = EscapeJsonValue(entry.Value.Trim());
+
+				sb.AppendFormat("\"{0}\":\"{1}\",", entry.Key, escapedValue);
 			}
 
 			if (sb.Length > 0)
@@ -156,6 +160,28 @@ namespace ResxToJs
 			}
 
 			File.WriteAllText(outputLocation, outputJson);
+		}
+
+		private void CheckDuplicateValues(Options options, Dictionary<string, string> valueDict, KeyValuePair<string, string> currentKeyValue, string outputLocation)
+		{
+			if (options.CheckDuplicatesInResx)
+			{
+				if (valueDict.ContainsKey(currentKeyValue.Value))
+				{
+					var message = string.Format(ErrorMessages.DuplicateValueInResX, currentKeyValue.Key, valueDict[currentKeyValue.Value],
+											currentKeyValue.Value, outputLocation);
+					this.appState.ErrorMesssages.Add(message);
+				}
+				else
+				{
+					valueDict.Add(currentKeyValue.Value, currentKeyValue.Key);
+				}
+			}
+		}
+
+		private static string EscapeJsonValue(string value)
+		{
+			return value.Replace("\"", "\\\"");
 		}
 	}
 }
