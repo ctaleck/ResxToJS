@@ -33,7 +33,9 @@ To pretty print the output JavaScript, use the below.
 ResxToJs.exe -i ".NET/C# resource files folder" -o "JavaScript resource files folder" --prettyPrint
 ```
 
+To check for duplicate values in the .resx files, use 
 
-
-
+```
+ResxToJs.exe -i ".NET/C# resource files folder" -o "JavaScript resource files folder" --checkDuplicates
+```
 
