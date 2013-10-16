@@ -136,7 +136,10 @@ namespace ResxToJs
 		{
 			var valueDict = new Dictionary<string, string>();
 			var resourceObjectName = string.IsNullOrEmpty(options.JsResourceObjectName) ? "Resources" : options.JsResourceObjectName.Trim();
-			var sb = new StringBuilder(resourceObjectName + " = {");
+			var sb = new StringBuilder("/* This is an auto-generated file. Do not hand-edit. Use the Resx2Js tool to generate it from Resx files */");
+			sb.AppendLine();
+			sb.Append(resourceObjectName);
+			sb.Append(" = {");
 
 			foreach (var entry in resourceDict)
 			{

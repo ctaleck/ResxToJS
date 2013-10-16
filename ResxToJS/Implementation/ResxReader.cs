@@ -37,7 +37,9 @@ namespace ResxToJs
 				{
 					var resourceFile = new ResourceFile() { IsBaseResourceType = false, ResourceFilePathName = filePathName };
 
-					var nameWithoutResx = filePathName.Remove(filePathName.LastIndexOf("."), 5);
+					var fileName = filePathName.Substring(filePathName.LastIndexOf("\\", StringComparison.InvariantCultureIgnoreCase) + 1);
+
+					var nameWithoutResx = fileName.Remove(fileName.LastIndexOf("."), 5);
 
 					// The file which does not have the ISO culture code in it is the base resource file.
 					if (nameWithoutResx.IndexOf(".") == -1)
