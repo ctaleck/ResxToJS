@@ -13,7 +13,7 @@ namespace ResxToJs
 		[Option('i', "inputFolder", Required = true, HelpText = "Input folder that contains .resx files.")]
 		public string InputFolder { get; set; }
 
-		[Option('o', "outputFolder", Required = true, HelpText = "Output folder for the generated .js files.")]
+		[Option('o', "outputFolder", Required = true, HelpText = "Output folder for the generated .json files.")]
 		public string OutputFolder { get; set; }
 
 		[Option("jsFileName", Required = false, HelpText = "Name of the JavaScript file. By default, uses the same name as the .resx file.")]

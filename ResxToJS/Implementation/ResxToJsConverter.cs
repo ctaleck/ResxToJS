@@ -55,23 +55,30 @@ namespace ResxToJs
 
 		private void GenerateJsResourceFiles(Options options, IEnumerable<ResourceFile> resourceFiles, ResourceFile baseResourceFile)
 		{
-			var baseResourceDict = resxReader.GetKeyValuePairsFromResxFile(baseResourceFile);
+			////var baseResourceDict = resxReader.GetKeyValuePairsFromResxFile(baseResourceFile);
 
 			foreach (var resourceFile in resourceFiles)
 			{
 				var outputJsFilePathName = GetJsOutputFileName(options, resourceFile);
+        // CT: Treat all files the same
 
-				if (resourceFile.IsBaseResourceType)
-				{
-					this.WriteOutput(options, baseResourceDict, outputJsFilePathName);
-				}
-				else
-				{
-					var cultureSpecificResourceDict = this.GetCultureSpecificResourceDictFromBaseDict(baseResourceDict, resourceFile);
+        //if (resourceFile.IsBaseResourceType)
+        //{
+        //  this.WriteOutput(options, baseResourceDict, outputJsFilePathName);
+        //}
+        //else
+        //{
+        //  var cultureSpecificResourceDict = this.GetCultureSpecificResourceDictFromBaseDict(baseResourceDict, resourceFile);
 
-					this.WriteOutput(options, cultureSpecificResourceDict, outputJsFilePathName);
-				}
-			}
+        //  this.WriteOutput(options, cultureSpecificResourceDict, outputJsFilePathName);
+        //}
+			  Dictionary<string, string> resourceDict = resxReader.GetKeyValuePairsFromResxFile(resourceFile);
+			  if (resourceDict.Count == 0)
+			  {
+			    resourceDict.Add("__comment", "Empty");
+			  }
+			  this.WriteOutput(options, resourceDict, outputJsFilePathName);
+      }
 		}
 
 		private static string GetJsOutputFileName(Options options, ResourceFile resourceFile)
@@ -79,7 +86,9 @@ namespace ResxToJs
 			var jsFileName = string.IsNullOrEmpty(options.JavaScriptFileName) 
 							? resourceFile.ResourceFilePathName.Substring(resourceFile.ResourceFilePathName.LastIndexOf("\\") + 1) 
 							: options.JavaScriptFileName;
-			var jsFileNameWithoutPath = jsFileName + ".js";
+      //var jsFileNameWithoutPath = jsFileName + ".js";
+      // CT: Made the file replace the resx with json
+      var jsFileNameWithoutPath = jsFileName.Replace("resx","json");
 			var outputJsFilePathName = Path.Combine(options.OutputFolder, jsFileNameWithoutPath);
 			return outputJsFilePathName;
 		}
@@ -109,7 +118,11 @@ namespace ResxToJs
 
 		private ResourceFile GetBaseResourceFile(IEnumerable<ResourceFile> resourceFiles)
 		{
-			var baseResourceFile = resourceFiles.Where(x => x.IsBaseResourceType).ToList();
+      ////var baseResourceFile = resourceFiles.Where(x => x.IsBaseResourceType).ToList();
+      // CT: Made "en" the "BaseResourceFile"
+      //var baseResourceFile = resourceFiles.Where(x => x.ResourceFilePathName.Contains("en")).ToList();
+      // CT: Get all resource files DOES NOT WORK
+      var baseResourceFile = resourceFiles.ToList();
 
 			if (!baseResourceFile.Any())
 			{
@@ -131,15 +144,17 @@ namespace ResxToJs
 			return resourceFiles;
 		}
 
-
 		private void WriteOutput(Options options, Dictionary<string, string> resourceDict, string outputLocation)
 		{
 			var valueDict = new Dictionary<string, string>();
-			var resourceObjectName = string.IsNullOrEmpty(options.JsResourceObjectName) ? "Resources" : options.JsResourceObjectName.Trim();
-			var sb = new StringBuilder("/* This is an auto-generated file. Do not hand-edit. Use the Resx2Js tool to generate it from Resx files */");
-			sb.AppendLine();
-			sb.Append(resourceObjectName);
-			sb.Append(" = {");
+      // CT: Made the format strict JSON 
+			////var resourceObjectName = string.IsNullOrEmpty(options.JsResourceObjectName) ? "Resources" : options.JsResourceObjectName.Trim();
+			////var sb = new StringBuilder("/* This is an auto-generated file. Do not hand-edit. Use the Resx2Js tool to generate it from Resx files */");
+		  var sb = new StringBuilder();
+      ////sb.AppendLine();
+			////sb.Append(resourceObjectName);
+      ////sb.Append(" = {");
+      sb.Append("{");
 
 			foreach (var entry in resourceDict)
 			{
@@ -154,7 +169,8 @@ namespace ResxToJs
 			{
 				sb = sb.Remove(sb.Length - 1, 1);
 			}
-			sb.Append("};");
+      ////sb.Append("};");
+      sb.Append("}");
 
 			var outputJson = sb.ToString();
 			if (options.PrettyPrint)

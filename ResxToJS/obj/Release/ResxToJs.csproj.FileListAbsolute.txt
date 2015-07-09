@@ -1,0 +1,10 @@
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\bin\Release\ResxToJs.exe.config
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\bin\Release\ResxToJs.exe
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\bin\Release\ResxToJs.pdb
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\bin\Release\CommandLine.dll
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\bin\Release\log4net.dll
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\bin\Release\CommandLine.xml
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\bin\Release\log4net.xml
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\obj\Release\ResxToJs.csprojResolveAssemblyReference.cache
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\obj\Release\ResxToJs.exe
+C:\Users\taleckc\Documents\GitHub\ResxToJS\ResxToJS\obj\Release\ResxToJs.pdb

@@ -25,10 +25,10 @@ namespace ResxToJs
 			}
 			else
 			{
-				Console.WriteLine("An error occurred while parsing the resx files.");
+				Console.WriteLine("An error occurred while parsing the options.");
 			}
 
-			Console.ReadLine();
+			////Console.ReadLine();
 		}
 
 		static void DisplayErrorMessages(IApplicationState appState)
